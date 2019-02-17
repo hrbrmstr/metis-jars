@@ -4,64 +4,47 @@ editor_options:
   chunk_output_type: console
 ---
 
-# metis
+# metis.jars
 
-Access and Query Amazon Athena via DBI/JDBC
+Amazon Athena JDBC Driver Wrapper Supporting the 'metis' Package
 
 ## Description
 
-In Greek mythology, Metis was Athena's "helper" so methods are provided to help you accessing and querying Amazon Athena via DBI/JDBC and/or `dplyr`.
-#' Methods are provides to connect to 'Amazon' 'Athena', lookup schemas/tables,
+Contents of the Amazon Athena JDBC Driver 
+<https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html>
+provided to support functions in the 'metis' package. Version number 
+reflects the version number of the included 'JAR' file.
 
 ## IMPORTANT
 
-Since R 3.5 (I don't remember this happening in R 3.4.x) signals sent from interrupting Athena JDBC calls crash the R interpreter. You need to set the `-Xrs` option to avoid signals being passed on to the JVM owner. That has to be done _before_ `rJava` is loaded so you either need to remember to put it at the top of all scripts _or_ stick this in your local `~/.Rprofile` and/or sitewide `Rprofile`:
+Until a release of 'rJava' newer than '0.9.10' is on CRAN signals sent 
+from interrupting Athena JDBC calls crash the R interpreter. You therefore 
+need to set the `-Xrs` option to avoid signals being passed on to the JVM 
+owner. That has to be done _before_ `rJava` is loaded so you either need 
+to remember to put it at the top of all scripts _or_ stick this
+in your local  `~/.Rprofile` and/or sitewide `Rprofile`:
 
 ```r
-if (!grepl("-Xrs", getOption("java.parameters", ""))) {
-  options(
-    "java.parameters" = c(getOption("java.parameters", default = NULL), "-Xrs")
-  )
-}
+options(
+  "java.parameters" = c(getOption("java.parameters", default = NULL), "-Xrs")
+)
 ```
 ## What's Inside The Tin?
 
 The following functions are implemented:
 
-Easy-interface connection helper:
-
-- `athena_connect`	Simplified Athena JDBC connection helper
-
-Custom JDBC Classes:
-
-- `Athena`:	AthenaJDBC (make a new Athena con obj)
-- `AthenaConnection-class`:	AthenaJDBC
-- `AthenaDriver-class`:	AthenaJDBC
-- `AthenaResult-class`:	AthenaJDBC
-
-Custom JDBC Class Methods:
-
-- `dbConnect-method`
-- `dbExistsTable-method`
-- `dbGetQuery-method`
-- `dbListFields-method`
-- `dbListTables-method`
-- `dbReadTable-method`
-- `dbSendQuery-method`
-
-Pulled in from other `cloudyr` pkgs: 
-
-- `read_credentials`:	Use Credentials from .aws/credentials File
-- `use_credentials`:	Use Credentials from .aws/credentials File
+- `athena_supported_types`:	Retrieve the current supported type names in Athena
+- `metis_jar_path()` : Retrieve the fully-qualified path to the included Athena JAR file
+- `simba_driver_version`:	Retrieve the version of the Simba Athena JDBC driver included with the package
 
 ## Installation
 
 ```{r eval=FALSE}
-devtools::install_git("https://git.sr.ht/~hrbrmstr/metis-lite")
+devtools::install_git("https://git.sr.ht/~hrbrmstr/metis-jars")
 # OR
-devtools::install_gitlab("hrbrmstr/metis-lite")
+devtools::install_gitlab("hrbrmstr/metis-jars")
 # OR
-devtools::install_github("hrbrmstr/metis-lite")
+devtools::install_github("hrbrmstr/metis-jars")
 ```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -71,84 +54,18 @@ options(width=120)
 ## Usage
 
 ```{r message=FALSE, warning=FALSE}
-library(metis.lite)
+library(metis.jars)
 
 # current verison
-packageVersion("metis.lite")
+packageVersion("metis.jars")
 ```
-
-```{r message=FALSE, warning=FALSE}
-library(rJava)
-library(RJDBC)
-library(metis.lite)
-library(magrittr)
-library(dbplyr)
-library(dplyr)
-
-dbConnect(
-  drv = metis.lite::Athena(),
-  schema_name = "sampledb",
-  provider = "com.simba.athena.amazonaws.auth.PropertiesFileCredentialsProvider",
-  AwsCredentialsProviderArguments = path.expand("~/.aws/athenaCredentials.props"),
-  s3_staging_dir = "s3://aws-athena-query-results-569593279821-us-east-1",
-) -> con
-
-dbListTables(con, schema="sampledb")
-
-dbExistsTable(con, "elb_logs", schema="sampledb")
-
-dbListFields(con, "elb_logs", "sampledb")
-
-dbGetQuery(con, "SELECT * FROM sampledb.elb_logs LIMIT 10") %>% 
-  glimpse()
-```
-
-### Check types
 
 ```{r}
-dbGetQuery(con, "
-SELECT
-  CAST('chr' AS CHAR(4)) achar,
-  CAST('varchr' AS VARCHAR) avarchr,
-  CAST(SUBSTR(timestamp, 1, 10) AS DATE) AS tsday,
-  CAST(100.1 AS DOUBLE) AS justadbl,
-  CAST(127 AS TINYINT) AS asmallint,
-  CAST(100 AS INTEGER) AS justanint,
-  CAST(100000000000000000 AS BIGINT) AS abigint,
-  CAST(('GET' = 'GET') AS BOOLEAN) AS is_get,
-  ARRAY[1, 2, 3] AS arr1,
-  ARRAY['1', '2, 3', '4'] AS arr2,
-  MAP(ARRAY['foo', 'bar'], ARRAY[1, 2]) AS mp,
-  CAST(ROW(1, 2.0) AS ROW(x BIGINT, y DOUBLE)) AS rw,
-  CAST('{\"a\":1}' AS JSON) js
-FROM elb_logs
-LIMIT 1
-") %>% 
-  glimpse()
-```
+simba_driver_version()
 
-#### dplyr
+athena_supported_types()
 
-```{r}
-tbl(con, sql("
-SELECT
-  CAST('chr' AS CHAR(4)) achar,
-  CAST('varchr' AS VARCHAR) avarchr,
-  CAST(SUBSTR(timestamp, 1, 10) AS DATE) AS tsday,
-  CAST(100.1 AS DOUBLE) AS justadbl,
-  CAST(127 AS TINYINT) AS asmallint,
-  CAST(100 AS INTEGER) AS justanint,
-  CAST(100000000000000000 AS BIGINT) AS abigint,
-  CAST(('GET' = 'GET') AS BOOLEAN) AS is_get,
-  ARRAY[1, 2, 3] AS arr,
-  ARRAY['1', '2, 3', '4'] AS arr,
-  MAP(ARRAY['foo', 'bar'], ARRAY[1, 2]) AS mp,
-  CAST(ROW(1, 2.0) AS ROW(x BIGINT, y DOUBLE)) AS rw,
-  CAST('{\"a\":1}' AS JSON) js
-FROM elb_logs
-LIMIT 1
-")) %>% 
-  glimpse()
+metis_jar_path()
 ```
 
 ## Code of Conduct

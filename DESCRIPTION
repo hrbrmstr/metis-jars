@@ -1,29 +1,27 @@
-Package: metis.lite
+Package: metis.jars
 Type: Package
-Title: Access and Query Amazon Athena via DBI/JDBC
-Version: 0.3.0
-Date: 2019-02-14
+Title: Amazon Athena JDBC Driver Wrapper Supporting the 'metis' Package
+Version: 2.0.6
+Date: 2019-02-17
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5670-2640"))
   )
 Maintainer: Bob Rudis <bob@rud.is>
 Encoding: UTF-8
-Description: Methods are provides to connect to 'Amazon' 'Athena', lookup schemas/tables,
-    perform queries and retrieve query results. A lightweight 'RJDBC' implementation 
-    is included along with additional helpers for 'dplyr'/'dplyr' suppprt.
+Description: Contents of the Amazon Athena JDBC Driver 
+    <https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html>
+    provided to support functions in the 'metis' package. Version number 
+    reflects the version number of the included 'JAR' file.
 SystemRequirements: JDK 1.8+
-License: MIT + file LICENSE
+License: Apache License (>= 2.0)
+Copyright: file inst/COPYRIGHTS
 Suggests:
     testthat,
     covr
 Depends:
-    R (>= 3.2.0),
-    RJDBC
+    R (>= 3.2.0)
 Imports:
     rJava,
-    DBI,
-    bit64,
-    dbplyr,
-    aws.signature
+    utils
 RoxygenNote: 6.1.1
