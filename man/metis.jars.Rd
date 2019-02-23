@@ -27,7 +27,7 @@ in your local  \code{~/.Rprofile} and/or sitewide \code{Rprofile}:\preformatted{
 }
 
 \references{
-\href{https://s3.amazonaws.com/athena-downloads/drivers/JDBC/SimbaAthenaJDBC_2.0.6/docs/Simba+Athena+JDBC+Driver+Install+and+Configuration+Guide.pdf}{Simba Athena JDBC Driver with SQL Connector Installation and Configuration Guide}
+\href{https://s3.amazonaws.com/athena-downloads/drivers/JDBC/SimbaAthenaJDBC_2.0.7/docs/Simba+Athena+JDBC+Driver+Install+and+Configuration+Guide.pdf}{Simba Athena JDBC Driver with SQL Connector Installation and Configuration Guide}
 }
 \author{
 Bob Rudis (bob@rud.is)

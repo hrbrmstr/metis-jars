@@ -1,7 +1,9 @@
 
-[![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/metis-jars.svg?branch=master)](https://travis-ci.org/hrbrmstr/metis-jars) 
-[![Coverage Status](https://codecov.io/gh/hrbrmstr/metis-jars/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/metis-jars)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/metis-jars)](https://cran.r-project.org/package=metis.jars)
+[![Travis-CI Build
+Status](https://travis-ci.org/hrbrmstr/metis-jars.svg?branch=master)](https://travis-ci.org/hrbrmstr/metis-jars)
+[![Coverage
+Status](https://codecov.io/gh/hrbrmstr/metis-jars/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/metis-jars)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/metis-jars)](https://cran.r-project.org/package=metis.jars)
 
 # metis.jars
 
@@ -59,13 +61,13 @@ library(metis.jars)
 packageVersion("metis.jars")
 ```
 
-    ## [1] '2.0.6'
+    ## [1] '2.0.7'
 
 ``` r
 simba_driver_version()
 ```
 
-    ## [1] "02.00.06.1008"
+    ## [1] "02.00.07.1012"
 
 ``` r
 athena_supported_types()
@@ -79,7 +81,7 @@ athena_supported_types()
 metis_jar_path()
 ```
 
-    ## [1] "/Library/Frameworks/R.framework/Versions/3.5/Resources/library/metis.jars/java/AthenaJDBC42_2.0.6.jar"
+    ## [1] "/Library/Frameworks/R.framework/Versions/3.5/Resources/library/metis.jars/java/AthenaJDBC42_2.0.7.jar"
 
 ## Code of Conduct
 

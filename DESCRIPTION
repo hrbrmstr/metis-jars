@@ -1,8 +1,8 @@
 Package: metis.jars
 Type: Package
 Title: Amazon Athena JDBC Driver Wrapper Supporting the 'metis' Package
-Version: 2.0.6
-Date: 2019-02-17
+Version: 2.0.7
+Date: 2019-02-22
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5670-2640"))
