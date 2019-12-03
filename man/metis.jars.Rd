@@ -4,7 +4,6 @@
 \encoding{UTF-8}
 \name{metis.jars}
 \alias{metis.jars}
-\alias{metis.jars-package}
 \title{Amazon Athena JDBC Driver Wrapper Supporting the 'metis' Package}
 \description{
 Contents of the Amazon Athena JDBC Driver
@@ -20,7 +19,7 @@ from interrupting Athena JDBC calls crash the R interpreter. You therefore
 need to set the \code{-Xrs} option to avoid signals being passed on to the JVM
 owner. That has to be done \emph{before} \code{rJava} is loaded so you either need
 to remember to put it at the top of all scripts \emph{or} stick this
-in your local  \code{~/.Rprofile} and/or sitewide \code{Rprofile}:\preformatted{options(
+in your local  \verb{~/.Rprofile} and/or sitewide \code{Rprofile}:\preformatted{options(
   "java.parameters" = c(getOption("java.parameters", default = NULL), "-Xrs")
 )
 }

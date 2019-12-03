@@ -61,13 +61,13 @@ library(metis.jars)
 packageVersion("metis.jars")
 ```
 
-    ## [1] '2.0.7'
+    ## [1] '2.0.9'
 
 ``` r
 simba_driver_version()
 ```
 
-    ## [1] "02.00.07.1012"
+    ## [1] "02.00.09.1018"
 
 ``` r
 athena_supported_types()
@@ -81,7 +81,7 @@ athena_supported_types()
 metis_jar_path()
 ```
 
-    ## [1] "/Library/Frameworks/R.framework/Versions/3.5/Resources/library/metis.jars/java/AthenaJDBC42_2.0.7.jar"
+    ## [1] "/Library/Frameworks/R.framework/Versions/3.6/Resources/library/metis.jars/java/AthenaJDBC42_2.0.9.jar"
 
 ## Code of Conduct
 
