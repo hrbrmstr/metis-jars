@@ -24,4 +24,4 @@ Depends:
 Imports:
     rJava,
     utils
-RoxygenNote: 7.0.1
+RoxygenNote: 7.1.0
